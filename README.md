@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  simple_audio_trimmer: ^0.1.3
+  simple_audio_trimmer: ^0.1.4
 ```
 
 ## Usage
@@ -68,11 +68,41 @@ For more detailed usage examples, please refer to the example folder.
 
 Supported audio file formats:
 - M4A
+- WAV
+
+The output format is determined by the extension of the output file. For example:
+
+```dart
+// Output as m4a
+await SimpleAudioTrimmer.trim(
+  inputPath: "input.m4a",
+  outputPath: "output.m4a",
+  start: 10.0,
+  end: 30.0,
+);
+
+// Output as WAV
+await SimpleAudioTrimmer.trim(
+  inputPath: "input.m4a",
+  outputPath: "output.wav",
+  start: 10.0,
+  end: 30.0,
+);
+```
+
+### Platform-specific format support notes:
+
+#### iOS
+iOS fully supports M4A and WAV formats for both input and output using native AVFoundation.
+
+#### Android
+- **WAV**: Supported with direct PCM conversion (pure native implementation, no external dependencies)
 
 ## Platform-specific Notes
 
 ### Android
 - The output directory must exist and have write permissions.
+- No external dependencies are used for audio encoding, ensuring no license conflicts.
 
 ### iOS
 - Appropriate permissions are required to access files outside the sandbox.

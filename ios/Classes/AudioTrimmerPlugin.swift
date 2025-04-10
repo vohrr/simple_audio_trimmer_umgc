@@ -33,15 +33,36 @@ public class AudioTrimmerPlugin: NSObject, FlutterPlugin {
   private func trimAudio(inputPath: String, outputPath: String, start: Double, end: Double, result: @escaping FlutterResult) {
     let inputURL = URL(fileURLWithPath: inputPath)
     let outputURL = URL(fileURLWithPath: outputPath)
+    
+    // 출력 파일 확장자 가져오기
+    let fileExtension = outputURL.pathExtension.lowercased()
+    
+    // 지원하는 프리셋 및 출력 형식 설정
+    var preset = AVAssetExportPresetAppleM4A
+    var outputFileType: AVFileType = .m4a
+    
+    // 확장자에 따라 적절한 프리셋과 파일 형식 결정
+    switch fileExtension {
+    case "wav":
+        preset = AVAssetExportPresetPassthrough
+        outputFileType = .wav
+    case "m4a":
+        preset = AVAssetExportPresetAppleM4A
+        outputFileType = .m4a
+    default:
+        // 기본값으로 m4a 사용
+        preset = AVAssetExportPresetAppleM4A
+        outputFileType = .m4a
+    }
 
     let asset = AVAsset(url: inputURL)
-    guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+    guard let exportSession = AVAssetExportSession(asset: asset, presetName: preset) else {
       result(FlutterError(code: "EXPORT_SESSION_ERROR", message: "Could not create export session", details: nil))
       return
     }
 
     exportSession.outputURL = outputURL
-    exportSession.outputFileType = .m4a
+    exportSession.outputFileType = outputFileType
 
     let startTime = CMTime(seconds: start, preferredTimescale: 600)
     let duration = CMTime(seconds: end - start, preferredTimescale: 600)
