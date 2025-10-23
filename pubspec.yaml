@@ -1,6 +1,6 @@
 name: simple_audio_trimmer
 description: "Audio Trimmer Plugin"
-version: 0.1.4
+version: 0.1.5
 homepage: https://github.com/raynear/audio_trimmer
 
 environment:

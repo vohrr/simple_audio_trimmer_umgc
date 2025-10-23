@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  simple_audio_trimmer: ^0.1.4
+  simple_audio_trimmer: ^0.1.5
 ```
 
 ## Usage
