@@ -30,7 +30,7 @@ class AudioTrimmerPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
             val endUs = end.toLong() * 1000000
 
             val success = when {
-                outputPath.toLowerCase().endsWith(".wav") -> trimToWav(inputPath, outputPath, startUs, endUs)
+                outputPath.lowercase().endsWith(".wav") -> trimToWav(inputPath, outputPath, startUs, endUs)
                 else -> trimToMp4Container(inputPath, outputPath, startUs, endUs)
             }
 
