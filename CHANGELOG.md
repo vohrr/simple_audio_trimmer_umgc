@@ -1,3 +1,7 @@
+## 0.1.4
+
+* Updated deprecated Kotlin syntax
+
 ## 0.1.3
 
 * Added error handling (PlatformException and general exception handling)
